@@ -41,44 +41,44 @@ namespace Schedule1_QuickFilter {
         public override void OnLateUpdate() {
             // Item mover
 
-            bool grabVanPushShelfFilterKey = Input.GetKeyUp(moveFilteredKey);
-            bool grabVanPushShelfKey = Input.GetKeyUp(moveKey);
-            bool grabShelfKey = Input.GetKeyUp(grabKey);
+            bool grabVanPushShelfFilterKey = Input.GetKeyDown(moveFilteredKey);
+            bool grabVanPushShelfKey = Input.GetKeyDown(moveKey);
+            bool grabShelfKey = Input.GetKeyDown(grabKey);
 
             if (!(grabVanPushShelfFilterKey || grabVanPushShelfKey || grabShelfKey)) { return; }
-            LoggerInstance.Msg("Valid key pressed!");
+                LoggerInstance.Msg("Valid key pressed!");
 
-            RaycastHit? testHit = RayCastUtils.GetLookedAt();
+                RaycastHit? testHit = RayCastUtils.GetLookedAt();
 
-            if (!testHit.HasValue) return;
-            RaycastHit hit = testHit.Value;
+                if (!testHit.HasValue) return;
+                RaycastHit hit = testHit.Value;
 
-            GameObject lookedAtObject = hit.collider.gameObject;
+                GameObject lookedAtObject = hit.collider.gameObject;
 
-            if (lookedAtObject == null) {
-                LoggerInstance.Msg("[Raycast] lookedAtObject is null");
-                return;
-            }
+                if (lookedAtObject == null) {
+                    LoggerInstance.Msg("[Raycast] lookedAtObject is null");
+                    return;
+                }
 
-            Transform transform = RayCastUtils.GetStorageObject(lookedAtObject.transform);
-            ItemSlotList itemSlots = RayCastUtils.GetItemSlots(transform);
+                Transform transform = RayCastUtils.GetStorageObject(lookedAtObject.transform);
+                ItemSlotList itemSlots = RayCastUtils.GetItemSlots(transform);
 
-            if (itemSlots == null) {
-                MelonLogger.Msg($"[Raycast] No valid storage type was found.");
+                if (itemSlots == null) {
+                    MelonLogger.Msg($"[Raycast] No valid storage type was found.");
 
-                return;
-            }
+                    return;
+                }
 
-            PlayerInventory plrInv = PlayerSingleton<PlayerInventory>.Instance;
-            ItemSlotList plrItems = plrInv.GetAllInventorySlots();
+                PlayerInventory plrInv = PlayerSingleton<PlayerInventory>.Instance;
+                ItemSlotList plrItems = plrInv.GetAllInventorySlots();
 
-            if (grabVanPushShelfFilterKey) {
-                StorageUtils.GrabVanPushShelfFilter(transform.gameObject.name, transform.parent.gameObject.name, itemSlots, plrItems, true);
+                if (grabVanPushShelfFilterKey) {
+                    StorageUtils.GrabVanPushShelfFilter(transform.gameObject.name, transform.parent.gameObject.name, itemSlots, plrItems, true);
             } else if (grabVanPushShelfKey) {
-                StorageUtils.GrabVanPushShelfFilter(transform.gameObject.name, transform.parent.gameObject.name, itemSlots, plrItems, false);
+                    StorageUtils.GrabVanPushShelfFilter(transform.gameObject.name, transform.parent.gameObject.name, itemSlots, plrItems, false);
             } else if (grabShelfKey) {
-                StorageUtils.GrabItems(itemSlots, plrItems);
-                // Grab items from shelf
+                    StorageUtils.GrabItems(itemSlots, plrItems);
+                    // Grab items from shelf
             }
         }
     }
