@@ -74,11 +74,9 @@ namespace Schedule1_QuickFilter {
 
             if (grabVanPushShelfFilterKey) {
                 StorageUtils.GrabVanPushShelfFilter(transform.gameObject.name, transform.parent.gameObject.name, itemSlots, plrItems, true);
-            }
-            else if (grabVanPushShelfKey) {
+            } else if (grabVanPushShelfKey) {
                 StorageUtils.GrabVanPushShelfFilter(transform.gameObject.name, transform.parent.gameObject.name, itemSlots, plrItems, false);
-            }
-            else if (grabShelfKey) {
+            } else if (grabShelfKey) {
                 StorageUtils.GrabItems(itemSlots, plrItems);
                 // Grab items from shelf
             }
